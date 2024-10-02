@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 function filter(attraction, age, height) {
 
     let atracctionOption = attraction
@@ -45,4 +46,3 @@ function filter(attraction, age, height) {
     }
 
     return atracctionOption
-}
