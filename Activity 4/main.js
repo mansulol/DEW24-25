@@ -12,18 +12,13 @@ var employees = [
 //     Departament: ${employe.department}`)
 // })
 
-let container = document.getElementById('tbody')
+let container = document.getElementById('tabla')
+container.style.textAlign='center'
 
 employees.forEach((employe) => {
-    let row = document.createElement('tr')
+    let row = document.createElement('tbody')
 
-    let id = document.createElement('td').innerHTML="SI"
-    let name = document.createElement('td').innerHTML="No"
-    let department = document.createElement('td').innerHTML="No se"
-
-    row.append( id )
-    row.append(name)
-    row.append(department)
+    row.innerHTML = `<td>${employe.id}</td><td> ${employe.name}</td><td> ${employe.department}</td>`
 
     container.append( row )
 })

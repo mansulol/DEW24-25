@@ -1,0 +1,50 @@
+body, html{
+  width: 100%;
+  height: 100%;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.container-game {
+  width: 100%;
+  height: 100%;
+  
+  .stage{
+    width: 100%;
+    height: 500px;
+
+    .row {
+      display: flex;
+      width: 100%;
+      display: flex;
+
+      .brick {
+        flex-grow: 1;
+        border: 3px solid #000000;
+        background-color: rgb(92, 218, 140);
+      }
+    }
+  }
+
+  .ball{
+    background-color: red;
+    border-radius: 100%;
+    position: absolute;
+    z-index: 10;
+
+    top: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .vaus{
+    background-color: blue;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+

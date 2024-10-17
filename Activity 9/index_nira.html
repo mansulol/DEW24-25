@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <form onsubmit="" action="">
+
+        <div class="personal">
+            <h2>Informacion personal</h2>
+            <div class="contenido">
+                <label for="nombre"> Nombre </label>
+                <input type="text" name="nombre" placeholder="John" required> <br>
+            </div>
+
+            <div class="contenido">
+                <label for="apellido"> Apellido </label>
+                <input type="text" name="apellido" placeholder="Doe" required> <br>
+            </div>
+            <div class="contenido">
+                <label for="nacimiento"> Fecha de Nacimiento </label>
+                <input type="date" name="nacimiento" placeholder="11-09-2011"><br>
+            </div>
+
+        </div>
+
+        <div class="contacto">
+            <h2>Informacion de Contacto</h2>
+            <div class="contenido">
+                <label for="email"> Email </label>
+                <input type="email" name="email" placeholder="youremail@gmail.com" required> <br>
+            </div>
+            <div class="contenido">
+                <label for="telefono"> Telefono </label>
+                <input type="number" name="telefono" placeholder="634 85 09 49"> <br>
+            </div>
+        </div>
+
+        <div class="adicional">
+            <h2>Informacion Adicional</h2>
+            <div class="contenido">
+                <label for="referente"> Como conociste la pagina? </label>
+                <select name="referente">
+                    <option value="redes_sociales"> Redes Sociales </option>
+                    <option value="amigo"> Por un amigo </option>
+                    <option value="familiar"> Por un familiar </option>
+                    <option value="otro"> Otro </option>
+                </select> <br>
+            </div>
+
+            <div class="contenido">
+                <label for="mensaje"> Mensaje </label> <br>
+                <textarea  rows="4" name="mensaje" placeholder="Pon tu comentario o sugerencias"></textarea> <br>
+            </div>
+        </div>
+
+        <div class="btn-enviar">
+            <button type="submit"> Enviar </button>
+        </div>
+
+    </form>
+
+</body>
+
+</html>
