@@ -1,97 +1,108 @@
-// var intro;
-//       function handleMouseMove(event) {
-//         var x = event.clientX;
-//         var y = event.clientY;
-//         $(".brick").removeClass("hightlight");
-//         $(".row").each(function () {
-//           var bounds = this.getBoundingClientRect();
-//           if (bounds.bottom >= y && bounds.top <= y) {
-//             $(this)
-//               .children(".brick")
-//               .each(function () {
-//                 var bounds = this.getBoundingClientRect();
-//                 if (bounds.left <= x && bounds.right >= x) {
-//                   $(this).addClass("hightlight");
-//                 }
-//               });
-//           }
-//         });
-//       }
-//       document.onmousemove = handleMouseMove;
+let ballPosX = 0;
+let ballPosY = 0;
 
+let velocityBallX = 10;
+let velocityBallY = -10;
 
-let ballPosX = 0
-let ballPosY = 0
+const velocityVausX = 30;
 
-let velocityX = 8
-let velocityY = -10
+let vausPosX = 0;
+let vausPosY = 0;
 
-let vausPosX = 0
+let ballWidth = 30;
+let ballHeight = 30;
 
-let ballWidth = 30
-let ballHeight = 30
+let vausWidth = 150;
+let vausHeight = 20;
 
-let vausWidth = 200
-let vausHeight = vausWidth/10
+let brickWidth = 250;
+let brickHeight = 50;
 
-let brickWidth = 250
-let brickHeight = 50
+let ball = document.querySelector(".ball");
+let vaus = document.querySelector(".vaus");
 
-let ball = document.querySelector('.ball')
-let vaus = document.querySelector('.vaus')
+// En segundo 60 veces (frames)
+let fps = 1/60;
 
-let frames = 1/60
+document.addEventListener("DOMContentLoaded", () => start());
 
-document.addEventListener('DOMContentLoaded', () => start())
+function start() {
+  // ball.style.top = "90%"
+  // ball.style.left = "50%"
+  // ball.style.transform = "translateX(-50%)";
 
-function start(){
-    // ball.style.top = "90%"
-    // ball.style.left = "50%"
-    // ball.style.transform = "translateX(-50%)";
+  //My balls
+  ball.style.width = ballWidth + "px";
+  ball.style.height = ballHeight + "px";
 
-    //My balls
-    ball.style.width = ballWidth+"px"
-    ball.style.height = ballHeight+"px"
+  ballPosX = ball.offsetLeft;
+  ballPosY = ball.offsetTop;
 
-    ballPosX = ball.offsetLeft
-    ballPosY = ball.offsetTop
+  // Vaus styles
+  vaus.style.width = vausWidth + "px";
+  vaus.style.height = vausHeight + "px";
 
-    // Vaus styles
-    vaus.style.width = vausWidth+"px"
-    vaus.style.height = vausHeight+"px"
+  vausPosX = vaus.offsetLeft;
+  vausPosY = vaus.offsetTop;
 
-    vausPosX = vaus.offsetLeft
-
-    // Brick Styles
-    // brick.style.width = "100px";
-    // brick.style.height = "20px";
-
-    
-    renderBlocks()
-    //play()
-    // console.log(collisions)
-    getCollisionsWalls()
+  // Brick Styles
+  // brick.style.width = "100px";
+  // brick.style.height = "20px";
+  // console.log(collisions)
+  renderBlocks();
 }
 
-function play(){
-    setInterval(() => {
+function play() {
+  document.onmousemove = handleMouseMove;
 
-        console.log(ballPosX, ballPosY)
+  let timer = setInterval(() => {
+    console.log(ballPosX, ballPosY);
 
-        velocityY -= 0.4
+    console.log();
 
-        ballPosY += velocityY
-        
-        if (ballPosY <= 0) {
-            velocityY *= -1
-        }
-        
-        actualizarGui()
-    
-    }, frames)
-}    
+    // velocityBallY -= 0.4
 
-function actualizarGui(){
-    ball.style.left = ballPosX+"px"
-    ball.style.top = ballPosY+"px"
+    ballPosY += velocityBallY;
+    ballPosX += velocityBallX;
+
+    if (ballPosY - ballWidth / 2 <= 0) {
+      velocityBallY *= -1;
+    }
+
+    if (ballPosX + ballWidth / 2 <= 0) {
+      velocityBallX *= -1;
+    }
+
+    if (ballPosX - ballWidth / 2 >= screen.clientWidth) {
+      velocityBallX *= -1;
+    }
+
+    if (ballPosY + ballHeight / 2 >= screen.clientHeight) {
+      clearInterval(timer);
+    }
+
+    // Colision con el vaus
+    if (collisionVaus()) {
+      velocityBallY *= -1;
+      velocityBallX *= 1;
+    }
+
+    actualizarGui();
+  }, fps);
 }
+
+function actualizarGui() {
+  ball.style.left = ballPosX + "px";
+  ball.style.top = ballPosY + "px";
+
+  renderBlocks();
+}
+
+function handleMouseMove(e) {
+  vausPosX = e.clientX;
+  vaus.style.left = vausPosX + "px";
+}
+
+document.addEventListener("keyup", (e) => {
+  if (e.code == "Space") play();
+});

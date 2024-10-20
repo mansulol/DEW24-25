@@ -7,10 +7,13 @@ let bricks = [
 
 let collisions = []
 
-let stage = document.querySelector('.stage')
+let hitbox = 5
 
+let stage = document.querySelector('.stage')
+let screen = document.getElementsByTagName('body')[0]
 
 function renderBlocks(){
+    stage.innerHTML=""
     
     for(let i=0; i<bricks.length; i++) {
         let row = document.createElement('div')
@@ -24,7 +27,6 @@ function renderBlocks(){
             
             brick.style.width = brickWidth+"px"
             brick.style.height = brickHeight+"px"
-            
             
             if( bricks[i][j].life === 0 ){
                 brick.style.backgroundColor = "#ff0000";
@@ -42,12 +44,22 @@ function renderBlocks(){
     }
 }
 
-function getCollisionswithBricks(){
+function getCollisionsBricks(){
     
-    for(let i=0; i<stage.children.length; i++){
-        for(let j=0; j<stage.children.length; j++){
-            console.log(stage.children[i].offsetTop, stage.children[i].offsetLeft)
-        }
+    // let lastRow = bricks[bricks.length-1]
+
+    // for(let i=0; i<lastRow.length; i++){
+    //     let brickLastRow = lastRow[i]
+
+    //     console.log(brickLastRow, brickLastRow)
+    // }
+
+    let bricksDOM = stage.children
+
+    for(let i=0; i<bricksDOM.length; i++){
+        let brickLastRow = bricksDOM[i]
+
+        console.log( brickLastRow.getBoundingClientRect().x + brickWidth/2, brickLastRow.getBoundingClientRect().y  + brickHeight/2 )
     }
     
     // let collisionsRow = []
@@ -60,10 +72,11 @@ function getCollisionswithBricks(){
     // collisions.push(collisionsRow)
 }
 
-function getCollisionsWalls(){
-    if( ballPosY ==  0){
-        console.log('Pared arriba', ballPosY, ballPosY)
-    }
+function collisionVaus(){
+    return ballPosY + vausHeight/2 + hitbox >= vausPosY &&
+            ballPosX <= vausPosX + vausWidth/2 &&
+            ballPosX >= vausPosX - vausWidth/2
+    ? true
+    : false
 }
-
 
