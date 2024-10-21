@@ -1,50 +1,86 @@
-body, html{
-  width: 100%;
-  height: 100%;
-  border: 0;
-  padding: 0;
-  margin: 0;
+body{
+  background-color: #222;
 }
 
 .container-game {
+  position: relative;
   width: 100%;
-  height: 100%;
-  
-  .stage{
-    width: 100%;
-    height: 500px;
-
-    .row {
-      display: flex;
-      width: 100%;
-      display: flex;
-
-      .brick {
-        flex-grow: 1;
-        border: 3px solid #000000;
-        background-color: rgb(92, 218, 140);
-      }
-    }
-  }
-
-  .ball{
-    background-color: rgb(174, 0, 255);
-    border-radius: 100%;
-    position: absolute;
-    z-index: 10;
-
-    top: 90%;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .vaus{
-    background-color: blue;
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
+  height: 100vh;
+  overflow: hidden;
 }
 
+.ball {
+  position: absolute;
+  background-color: #d3edfd;
+  border-radius: 50%;
+}
 
+.vaus {
+  position: absolute;
+  bottom: 20px;
+  background-color: #6b684f;
+  border-radius: 5px;
+}
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.brick {
+  margin: 4px;
+  border-radius: 5px;
+}
+
+.menu{
+  position: absolute;
+  z-index: 900;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background-color: #222;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: white;
+  animation-delay: .3s;
+
+  img{
+    width: 50%;
+  }
+
+}
+.retry{
+  visibility: hidden;
+  position: absolute;
+  z-index: 900;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(228, 228, 228);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation-delay: .3s;
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+
+  img{
+    width: 90%;
+    height: 90%;
+  }
+}

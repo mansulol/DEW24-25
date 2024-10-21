@@ -1,8 +1,8 @@
 let ballPosX = 0;
 let ballPosY = 0;
 
-let velocityBallX = 10;
-let velocityBallY = -10;
+let velocityBallX = 6;
+let velocityBallY = -6;
 
 const velocityVausX = 30;
 
@@ -22,18 +22,17 @@ let ball = document.querySelector(".ball");
 let vaus = document.querySelector(".vaus");
 
 // En segundo 60 veces (frames)
-let fps = 1/60;
+let fps = 1000 / 60;
 
 document.addEventListener("DOMContentLoaded", () => start());
 
 function start() {
-  // ball.style.top = "90%"
-  // ball.style.left = "50%"
-  // ball.style.transform = "translateX(-50%)";
-
-  //My balls
   ball.style.width = ballWidth + "px";
   ball.style.height = ballHeight + "px";
+
+  ball.style.top = "90%";
+  ball.style.left = "50%";
+  ball.style.transform = "translateX(-50%)";
 
   ballPosX = ball.offsetLeft;
   ballPosY = ball.offsetTop;
@@ -42,13 +41,12 @@ function start() {
   vaus.style.width = vausWidth + "px";
   vaus.style.height = vausHeight + "px";
 
+  vaus.style.left = "50%";
+  vaus.style.transform = "translateX(-50%)";
+
   vausPosX = vaus.offsetLeft;
   vausPosY = vaus.offsetTop;
 
-  // Brick Styles
-  // brick.style.width = "100px";
-  // brick.style.height = "20px";
-  // console.log(collisions)
   renderBlocks();
 }
 
@@ -56,12 +54,6 @@ function play() {
   document.onmousemove = handleMouseMove;
 
   let timer = setInterval(() => {
-    console.log(ballPosX, ballPosY);
-
-    console.log();
-
-    // velocityBallY -= 0.4
-
     ballPosY += velocityBallY;
     ballPosX += velocityBallX;
 
@@ -69,24 +61,25 @@ function play() {
       velocityBallY *= -1;
     }
 
-    if (ballPosX + ballWidth / 2 <= 0) {
+    if (ballPosX - ballWidth / 2 <= 0) {
       velocityBallX *= -1;
     }
 
-    if (ballPosX - ballWidth / 2 >= screen.clientWidth) {
+    if (ballPosX + ballWidth / 2 >= window.innerWidth) {
       velocityBallX *= -1;
     }
 
-    if (ballPosY + ballHeight / 2 >= screen.clientHeight) {
+    if (ballPosY + ballHeight / 2 >= window.innerHeight) {
       clearInterval(timer);
+      gameOver();
     }
 
-    // Colision con el vaus
+    // Colisión con el vaus
     if (collisionVaus()) {
       velocityBallY *= -1;
-      velocityBallX *= 1;
     }
 
+    getCollisionsBricks();
     actualizarGui();
   }, fps);
 }
@@ -99,10 +92,29 @@ function actualizarGui() {
 }
 
 function handleMouseMove(e) {
-  vausPosX = e.clientX;
+  vausPosX = e.clientX - vausWidth / 2;
   vaus.style.left = vausPosX + "px";
 }
 
+// Press space to play
 document.addEventListener("keyup", (e) => {
-  if (e.code == "Space") play();
+  let menu = document.querySelector(".menu");
+  menu.remove();
+
+  setTimeout(() => {
+    if (e.code == "Space") start(), play();
+  }, 200);
 });
+
+function gameOver() {
+  alert("Game Over!");
+  let retry = document.querySelector(".retry");
+  retry.style.visibility = "visible"
+
+  retry.addEventListener("click", () => {
+    start()
+    play()
+
+    retry.style.visibility = "hidden"
+  });
+}
